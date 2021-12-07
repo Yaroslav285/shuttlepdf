@@ -57,6 +57,7 @@ exports.pdfByURL = async (req, res) => {
 
     const mediaType = req.query.mediaType || "screen";
     await page.emulateMediaType(mediaType);
+    await page.waitFor(5000);
 
     const pdfBuffer = await page.pdf({ printBackground: true });
 
