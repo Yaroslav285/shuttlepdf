@@ -6,9 +6,10 @@
   "author": "Courtsite <tech@courtsite.my>",
   "license": "MIT",
   "engines": {
-      "node": ">=12 <=14"
+    "node": ">=12 <=14"
   },
   "dependencies": {
+    "express": "^4.17.1",
     "puppeteer": "^10.4.0"
   },
   "devDependencies": {
