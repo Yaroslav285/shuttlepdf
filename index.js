@@ -54,12 +54,28 @@ exports.pdfByURL = async (req, res) => {
     }
 
     await page.goto(parsedUrl.toString());
-
+    await page.setViewport({
+        width: 1920,
+        height: 1080
+    });
     const mediaType = req.query.mediaType || "screen";
     await page.emulateMediaType(mediaType);
     await page.waitFor(5000);
 
-    const pdfBuffer = await page.pdf({ printBackground: true });
+    await page.addStyleTag({
+        content: '@page { size: auto; }',
+    })
+
+    const [width, height] = await page.evaluate(() => [
+        document.documentElement.offsetWidth,
+        document.documentElement.offsetHeight
+    ]);
+
+    const pdfBuffer = await page.pdf({
+        printBackground: true,
+        pageRanges: '1',
+        height: +height + 1
+    });
 
     res.set("Content-Type", "application/pdf");
     res.status(200).send(pdfBuffer);
