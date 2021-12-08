@@ -16,11 +16,26 @@
 ### Deployment
 
 1. Clone / download a copy of this repository
-2. Run `./deploy.sh`
-3. Enter yes for "Allow unauthenticated invocations of new function" (unless you want to expose your function privately, and in other ways)
-4. Test it out! e.g. `https://<region>-<project>.cloudfunctions.net/pdfByURL?url=https://www.bbc.co.uk`
+2. Remove index.js
+3. Rename for-cloud.js to index.js
+4. Run `./deploy.sh`
+5. Enter yes for "Allow unauthenticated invocations of new function" (unless you want to expose your function privately, and in other ways)
+6. Test it out! e.g. `https://<region>-<project>.cloudfunctions.net/pdfByURL?url=https://www.bbc.co.uk`
 
 Update `deploy.sh` to suit your needs (e.g. higher timeouts, different region, more memory, etc).
+
+### Docker container version
+
+Please follow the instructions on page: https://hub.docker.com/r/yaroslav285/puppeter-pdf
+
+In short:
+Just use docker-compose template.
+
+##### Known issues for Docker version:
+
+Current version does not support paralled printing mechanism.
+In other words:
+You can't print two pages simultaneously. Just wait for completion first request.
 
 ### Performance
 
