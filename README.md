@@ -3,7 +3,7 @@
 📃 Smashingly simple, and scalable _("serverless")_ HTML to PDF conversions using Google Cloud Functions, and Puppeteer.
 
 
-## Getting Started
+## Getting Started (Cloud version)
 
 ### Prerequisites
 
@@ -24,7 +24,7 @@
 
 Update `deploy.sh` to suit your needs (e.g. higher timeouts, different region, more memory, etc).
 
-### Performance (Cloud version)
+### Performance
 
 It is worth mentioning that the average processing time for a standard web page (using the default `1024MB` set in `deploy.sh`) is between 5-15s.
 
@@ -34,16 +34,18 @@ If you are dealing with lots of requests or if you require lower latencies, you 
 
 We also suggest pairing the serverful converter with a workflow engine like [Temporal](https://temporal.io/) if you have relatively complex processing pipelines or if you require strong guarantees (SLAs) around conversions.
 
-### Docker container version
+## Getting Started (Docker version)
+
+### Pull image
 
 Please follow the instructions on page: https://hub.docker.com/r/yaroslav285/puppeter-pdf
 
 In short:
-Just use docker-compose template.
+Just use docker-compose template from Docker Hub.
 
 ##### Known issues for Docker version:
 
-Current version does not support paralled printing mechanism.
+Current version does not support parallel printing mechanism.
 
 In other words:
 
