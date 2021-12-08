@@ -24,6 +24,16 @@
 
 Update `deploy.sh` to suit your needs (e.g. higher timeouts, different region, more memory, etc).
 
+### Performance (Cloud version)
+
+It is worth mentioning that the average processing time for a standard web page (using the default `1024MB` set in `deploy.sh`) is between 5-15s.
+
+This can potentially be improved by increasing the memory (as doing so will increase the CPU alongside it).
+
+If you are dealing with lots of requests or if you require lower latencies, you may want to consider running a serverful converter, e.g. https://github.com/gotenberg/gotenberg
+
+We also suggest pairing the serverful converter with a workflow engine like [Temporal](https://temporal.io/) if you have relatively complex processing pipelines or if you require strong guarantees (SLAs) around conversions.
+
 ### Docker container version
 
 Please follow the instructions on page: https://hub.docker.com/r/yaroslav285/puppeter-pdf
@@ -34,15 +44,7 @@ Just use docker-compose template.
 ##### Known issues for Docker version:
 
 Current version does not support paralled printing mechanism.
+
 In other words:
+
 You can't print two pages simultaneously. Just wait for completion first request.
-
-### Performance
-
-It is worth mentioning that the average processing time for a standard web page (using the default `1024MB` set in `deploy.sh`) is between 5-15s.
-
-This can potentially be improved by increasing the memory (as doing so will increase the CPU alongside it).
-
-If you are dealing with lots of requests or if you require lower latencies, you may want to consider running a serverful converter, e.g. https://github.com/gotenberg/gotenberg
-
-We also suggest pairing the serverful converter with a workflow engine like [Temporal](https://temporal.io/) if you have relatively complex processing pipelines or if you require strong guarantees (SLAs) around conversions.
