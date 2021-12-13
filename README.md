@@ -5,10 +5,15 @@
 ## Getting started:
 
 Create your Azure function app.
+
 Select your deployment strategy and configure pipelines for function deployment.
+
 Referenced documentation:
+
 https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-function-app-portal
+
 https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-http-webhook-trigger?tabs=javascript
+
 
 The function code is already prepared. Just deploy your code to function app.
 
