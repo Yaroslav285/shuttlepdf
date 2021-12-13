@@ -32,10 +32,10 @@ async function getBrowserPage() {
     return browser.newPage();
 }
 
-exports.pdfByURL = async (req, res) => {
+module.exports = async function (context, req) {
     const acceptedMethods = ["GET", "POST"];
     if (acceptedMethods.indexOf(req.method.toUpperCase()) === -1) {
-        return res
+        return context.res
             .status(400)
             .send(
                 `invalid HTTP method: ${req.method} (only GET or POST allowed)`
@@ -46,7 +46,7 @@ exports.pdfByURL = async (req, res) => {
     try {
         parsedUrl = new URL(req.query.url);
     } catch (err) {
-        return res.status(400).send(`invalid URL: ${req.query.url}`);
+        return context.res.status(400).send(`invalid URL: ${req.query.url}`);
     }
 
     if (!page) {
@@ -77,6 +77,6 @@ exports.pdfByURL = async (req, res) => {
         height: +height + 1
     });
 
-    res.set("Content-Type", "application/pdf");
-    res.status(200).send(pdfBuffer);
+    context.res.set("Content-Type", "application/pdf");
+    context.res.status(200).send(pdfBuffer);
 };
