@@ -8,6 +8,7 @@ const port = 9095;
 
 async function getBrowserPage() {
     const browser = await puppeteer.launch({
+        timeout: 0,
         args: [
             "--allow-running-insecure-content",
             "--disable-background-networking",
@@ -31,6 +32,7 @@ async function getBrowserPage() {
             "--no-startup-window",
             "--no-zygote",
             "--safebrowsing-disable-auto-update",
+            "--window-size=1920,1080",
         ],
     });
     return browser.newPage();
@@ -57,6 +59,7 @@ app.get('/pdfByURL', async (req, res) => {
             page = await getBrowserPage();
         }
 
+        await page._client.send('Emulation.clearDeviceMetricsOverride');
         await page.goto(parsedUrl.toString());
         await page.setViewport({
             width: 1920,
@@ -64,21 +67,13 @@ app.get('/pdfByURL', async (req, res) => {
         });
         const mediaType = req.query.mediaType || "screen";
         await page.emulateMediaType(mediaType);
+        await page.setDefaultNavigationTimeout(0);
         await page.waitFor(5000);
-
-        await page.addStyleTag({
-            content: '@page { size: auto; }',
-        })
-
-        const [width, height] = await page.evaluate(() => [
-            document.documentElement.offsetWidth,
-            document.documentElement.offsetHeight
-          ]);
 
         const pdfBuffer = await page.pdf({
             printBackground: true,
-            pageRanges: '1', // THE HACK to make it work
-            height: +height + 1
+            format: 'a4',
+            width: 1920
         });
 
         res.set("Content-Type", "application/pdf");
