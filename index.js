@@ -70,10 +70,25 @@ app.get('/pdfByURL', async (req, res) => {
         await page.setDefaultNavigationTimeout(0);
         await page.waitFor(5000);
 
+        const date = new Date().toLocaleDateString('fr-FR', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            timeZone:  'Europe/Paris'
+        }).split('/').join('-');
+
         const pdfBuffer = await page.pdf({
             printBackground: true,
             format: 'a4',
-            width: 1920
+            width: 1920,
+            displayHeaderFooter: true,
+            headerTemplate: '<div style="font-size:7px;white-space:nowrap;margin-left:38px;"> Generated at: ' + date + '<span style="margin-left: 10px;">(Paris Time)</span></div>',
+            margin: {
+              top: '38px',
+              bottom: '38px',
+            }
         });
 
         res.set("Content-Type", "application/pdf");
